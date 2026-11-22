@@ -4,35 +4,17 @@
 **Contact**: akbar.esfahani@gmail.com
 **Date**: March 2026
 
-## Witness Functors revision (November 2026)
+## Witness Functors
 
-The revised [Witness Functors manuscript](paper_witness/main.pdf),
-[LaTeX source](paper_witness/main.tex), and
-[claim-by-claim revision record](paper_witness/REVISION_NOTES.md) are in
-`paper_witness/`. The revision separates observational limits from model error,
-defines explicit categorical actions, and corrects the identification with SPTB.
-It does not rely on the all-spectrum detection and variance claims in the older
-SPTB text below. Those claims retain the analytic obligations documented in the
-revision. See [build and verification instructions](paper_witness/README.md).
+Akbar Akbari Esfahani’s November 2026 revision separates what an observation can distinguish from the error of the model fitted to it. It also revisits the spline estimates in the March paper. [Revised manuscript](paper_witness/main.pdf) [Source](paper_witness/main.tex) [Revision record](paper_witness/REVISION_NOTES.md) [Verification](paper_witness/README.md)
 
 ---
 
 ## Abstract
 
-We introduce the **Spline-Penalized Tail Bound (SPTB)** functional, a finite-window
-criterion for detecting off-critical zeros of automorphic *L*-functions. We prove a
-rigorous **detection theorem**: any zero with &beta; > &sigma; forces exponential growth
-F<sub>&lambda;</sub> &Gt; e<sup>2(&beta;&minus;&sigma;)T</sup>, while the on/left regime
-obeys an unconditional polynomial bound
-F<sub>&lambda;</sub> = O(T log T log log T). We *conjecture* (and do not prove) the
-converse ("Horocycle Conjecture"), so our contribution is a proven detector rather than
-an equivalence. We validate numerically (slope agreement within 0.03% at T = 5 &times; 10<sup>4</sup>)
-and give a heuristic geometric interpretation.
+The Spline-Penalized Tail Bound (SPTB) measures how much of a signal remains after fitting an affine function on each time interval. The March paper proposes using this quantity to detect a zero to the right of a chosen line. The November revision proves exponential growth for a single complex exponential on an interval of fixed width. Detection for the full sum over zeros on the shrinking intervals used in the March paper remains open.
 
-**Key Results**:
-- **Detection Theorem** (proven): Off-line zero &rArr; exponential growth in F<sub>&lambda;</sub>
-- **Horocycle Conjecture** (proposed): Polynomial boundedness &rArr; all zeros on-line
-- **Empirical validation**: 0.03% slope agreement at T = 5 &times; 10<sup>4</sup> using ~80 Odlyzko zero ordinates
+The numerical experiment assigns real part one half to 79 tabulated zeta zero ordinates and adds a synthetic zero to test its effect on the fitted slope. At the largest horizon in the table below, the measured slope for &eta; = 0.0001 differs from 2&eta; by 0.032%. [Numerical results](numerical_analysis/sptb_out/bias_summary.csv)
 
 ---
 
@@ -57,38 +39,34 @@ install.packages("Rmpfr")
 git clone https://github.com/aakbarie/SPTB-RiemannHypothesis.git
 cd SPTB-RiemannHypothesis
 
-# 2. Run the analysis
-cd numerical_analysis
-Rscript sptb_analysis.R
-
-# 3. View results
-ls sptb_out/
+# Run from the repository root
+Rscript numerical_analysis/sptb_analysis.R
+ls numerical_analysis/sptb_out/
 ```
 
 ---
 
 ## Main Results
 
-### Figure 1: Detection Signature
+### Fitted slopes
 
 ![Empirical vs Theory](numerical_analysis/sptb_out/bias_tail_slope_vs_theory.png)
 
-Linear agreement between empirical exponential slopes and theoretical prediction 2&eta;
-across T &isin; [10<sup>4</sup>, 5 &times; 10<sup>4</sup>].
+The figure compares the fitted slope with 2&eta; at three horizons for each of three positive values of &eta;.
 
-### Figure 2: Exponential Bias Regime
+### Synthetic zeros
 
 ![Semilog Action](numerical_analysis/sptb_out/bias_total_diff_grid.png)
 
 Exponential signature when synthetic off-line zeros (&beta; > &sigma;) are introduced.
 
-### Figure 3: Variance Regime
+### Baseline variance
 
 ![Variance](numerical_analysis/sptb_out/variance_T_logT_loglogT.png)
 
-Polynomial growth F<sub>&lambda;</sub> = O(T log T log log T) confirmed for on-line zeros.
+The figure compares the baseline energy with T log T log log T at six horizons from 200 to 10,000. [Variance table](numerical_analysis/sptb_out/variance_table.csv)
 
-### Convergence to Asymptotic Slope (2&eta;)
+### Three horizons
 
 | T | &eta; | Empirical slope | Theory (2&eta;) | Rel. Error |
 |---|-------|-----------------|-----------------|------------|
@@ -96,14 +74,15 @@ Polynomial growth F<sub>&lambda;</sub> = O(T log T log log T) confirmed for on-l
 | 2 &times; 10<sup>4</sup> | 10<sup>-4</sup> | 2.078 &times; 10<sup>-4</sup> | 2 &times; 10<sup>-4</sup> | 3.9% |
 | 5 &times; 10<sup>4</sup> | 10<sup>-4</sup> | 2.001 &times; 10<sup>-4</sup> | 2 &times; 10<sup>-4</sup> | **0.03%** |
 
-Monotone convergence demonstrates asymptotic exactness of theoretical predictions.
+The relative errors decrease over these three runs. The injected frequency also changes with the block width, from 2.1988 at T = 10,000 to 0.45 at T = 50,000. [Fitted slopes and frequencies](numerical_analysis/sptb_out/bias_summary.csv)
 
 ---
 
 ## Repository Structure
 ```
 SPTB-RiemannHypothesis/
-├── paper_clean/              # Current paper (30 pages)
+├── paper_witness/            # November revision and verification scripts
+├── paper_clean/              # March paper (34 pages)
 │   ├── main.tex              # Main document
 │   ├── main.pdf              # Compiled PDF
 │   ├── parts/
@@ -138,7 +117,7 @@ SPTB-RiemannHypothesis/
 
 ## Paper
 
-**Full paper**: [paper_clean/main.pdf](paper_clean/main.pdf) (28 pages)
+The March manuscript has 34 pages. Sections 10.2 and 10.3 of the November revision give the single-mode theorem, the scaling counterexample and the bound for a damped zeta field. [March paper](paper_clean/main.pdf) [November revision](paper_witness/main.pdf)
 
 ### Compilation
 ```bash
@@ -149,12 +128,11 @@ Run three times to resolve all cross-references and TOC entries.
 
 ### Citation
 ```bibtex
-@article{esfahani2026sptb,
+@misc{esfahani2026sptb,
   title={A Structural Spline-Penalized Tail Bound for {$L$}-Functions},
   author={Esfahani, Akbar Akbari},
-  journal={arXiv preprint},
   year={2026},
-  note={GitHub: \url{https://github.com/aakbarie/SPTB-RiemannHypothesis}}
+  url={https://github.com/aakbarie/SPTB-RiemannHypothesis/blob/def11b359321de71bb2f4e3feb9e58c790d7fd8a/paper_clean/main.pdf}
 }
 ```
 
@@ -170,23 +148,16 @@ Run three times to resolve all cross-references and TOC entries.
 - **Robust regression**: `MASS` (Huber M-estimator for tail slopes)
 - **Optional**: `Rmpfr` (arbitrary precision for extreme T)
 - **Hardware**: Tested on Apple Silicon (M1/M2) and Intel x86_64
-- **Runtime**: ~2 hours for complete sweep (6 variance + 9 bias scenarios at n_t up to 120,000)
+- The main sweep has six baseline runs and nine runs with a synthetic zero.
 
 ### Data Sources
 
 - **Odlyzko zeros**: [www-odlyzko.dtc.umn.edu/zeta_tables](https://www-odlyzko.dtc.umn.edu/zeta_tables/)
-- **Zero selection**: Ordinates with &gamma; &le; 200 (~80 zeros), weight 2 for conjugate symmetry
-- **All zeros verified**: &beta; = 1/2 to machine precision
+The analysis uses the 79 positive ordinates at or below 200. The input file supplies their imaginary parts. The R loader assigns real part one half and weight two to account for each conjugate pair. [Input table](data/zeros_1.txt) [R implementation](numerical_analysis/sptb_analysis.R)
 
-### Validation
+### Reproduction
 
-All results are reproducible:
-```bash
-cd numerical_analysis
-Rscript sptb_analysis.R
-```
-
-Output CSVs and figures appear in `sptb_out/`.
+Run `Rscript numerical_analysis/sptb_analysis.R` from the repository root. The script writes its CSV files and figures to `numerical_analysis/sptb_out/`.
 
 ---
 
@@ -197,30 +168,17 @@ Output CSVs and figures appear in `sptb_out/`.
 F_λ(H_σ; T, Δ) = Σ_j [ ∫_{I_j} |H_σ - S_j|² dt + λ ∫_{I_j} |∂_t(H_σ - S_j)|² dt ]
 ```
 
-where:
-- `H_σ(t) = Σ_ρ w_ρ |ρ|^{-α} e^{(β-σ)t} cos(γt)` — harmonic field (mean-centered)
-- `S_j` = best local affine fit on block `I_j`
-- `Δ = c_Δ / log T` — block width (`c_Δ = 2π` for variance, adaptive `c_Δ ∈ [2π, 60π]` for bias)
-- `λ = c_λ / (log T)²` — derivative penalty (`c_λ = 1`)
-- `c_der = 1/12` — affine Poincare constant (sufficient; sharp constant is `4π²/Δ²`)
+In this expression, `S_j` is the least-squares affine fit on block `I_j`. The numerical signal is the centred sum of the terms `w_ρ |ρ|^{-α} e^{(β−σ)t} cos(γt)`. The block width is `Δ = c_Δ / log T`, with `c_Δ = 2π` for baseline runs and an adaptive value between 2π and 60π for synthetic-zero runs. The derivative penalty is `λ = 1 / (log T)²`.
 
-### Detection Theorem
+### Detection estimates
 
-**Theorem** (SPTB Detection):
+For a complex mode of the form `c exp((η + iω)t)` with nonzero amplitude, &eta; > 0 and fixed positive width and derivative penalty, the squared distance to the best affine fit in the weighted norm grows as a positive constant times exp(2&eta;T). The real-mode estimate proposed in the March paper fails uniformly in the width. Setting &eta; = 1/&Delta; and &omega; = 2/&Delta; gives a squared projection error proportional to &Delta;, while the proposed lower bound is proportional to 1/&Delta;. [Single-mode theorem and counterexample](paper_witness/main.tex)
 
-1. **Variance regime** (&beta; &le; &sigma;):
-   `F_λ = O(T log T log log T)`
+For a sum, the other modes can cancel part of the chosen mode after projection. A sufficient bound is that their projected norm is at most a fixed fraction less than one of the chosen mode’s projected norm. The March application needs estimates for the actual spectrum and its shrinking mesh. For the separately damped zeta field, assuming all nontrivial zeta zeros have real part one half, the revision proves an upper bound of order T(1 + &lambda;) for the optimised energy when &alpha; > 2 and 1/2 &le; &sigma; &le; 1. The March application uses &alpha; = 1. [Remainder estimate and damped-field theorem](paper_witness/main.tex)
 
-2. **Bias regime** (&beta; > &sigma;):
-   `F_λ ≫ e^{2(β-σ)T}`
+### Horocycle conjecture
 
-**Status**: Rigorously proven
-
-### Horocycle Conjecture
-
-If F<sub>&lambda;</sub> / [T(log T)<sup>2</sup>] remains bounded, then all zeros satisfy &beta; &le; &sigma;.
-
-**Status**: Conjectured, with strong numerical evidence and geometric motivation. Not proved.
+The March manuscript asks whether boundedness of F<sub>&lambda;</sub> divided by T log T log log T for all sufficiently large T forces every zeta zero to satisfy &beta; &le; &sigma;, for 1/2 &le; &sigma; < 1. This remains open for the proposed functional and general zero configurations. [Statement in Part 2](paper_clean/parts/part2.tex)
 
 ---
 
@@ -233,8 +191,8 @@ If F<sub>&lambda;</sub> / [T(log T)<sup>2</sup>] remains bounded, then all zeros
 | &sigma; | 0.50 | 0.50 |
 | c<sub>&Delta;</sub> (&kappa;) | 2&pi; | Adaptive, [2&pi;, 60&pi;] |
 | &lambda; | 1 / (log T)<sup>2</sup> | 1 / (log T)<sup>2</sup> |
-| n<sub>t</sub> (grid points) | 4,000 &ndash; 30,000 | up to 120,000 |
-| Zero source | Odlyzko (~80, &gamma; &le; 200, weight 2) | Odlyzko + synthetic (&beta; > &sigma;, weight 1) |
+| n<sub>t</sub> (grid points) | 4,000 to 234,544 | 120,000 |
+| Zero source | Odlyzko (79, &gamma; &le; 200, weight 2) | Odlyzko + synthetic (&beta; > &sigma;, weight 1) |
 | Standardization | Mean-centered | Mean-centered |
 | Quadrature | Trapezoidal | Trapezoidal |
 | Tail slope | &mdash; | Huber-robust regression on last 1/3 of blocks |
@@ -266,12 +224,7 @@ central_diff()               # Central finite differences for derivative term
 
 ## Related Work
 
-| Approach | Core Idea | SPTB Advantage |
-|----------|-----------|----------------|
-| **Connes** (spectral) | RH &hArr; operator positivity | Explicit computability from finite zeros |
-| **Berry-Keating** | Zeros &hArr; eigenvalues of H=xp | Finite-time detection (T &asymp; 10<sup>4</sup>) |
-| **Balazs-Voros** | Zeros &hArr; periodic orbits | Quantitative validation (0.03% precision) |
-| **Li's criterion** | RH &hArr; positivity of &lambda;<sub>n</sub> | Measurable energy functional |
+The March paper discusses spectral approaches by Connes, Berry and Keating, and Balazs and Voros, alongside Li’s positivity criterion. Its geometric comparison is heuristic. Its numerical results concern the finite zero lists described above. [Geometric discussion and references](paper_clean/parts/part4.tex)
 
 ---
 
@@ -279,7 +232,7 @@ central_diff()               # Central finite differences for derivative term
 
 Contributions are welcome. Areas for extension:
 
-1. **Theoretical**: Prove the Horocycle Conjecture (converse direction)
+1. Bound cancellation in the full projected spectrum on a shrinking mesh.
 2. **Numerical**: Extend to T > 10<sup>6</sup> using MPFR
 3. **Applications**: Test on Dirichlet L-functions, modular forms
 4. **Optimization**: Parallelize across (T, &eta;) grid
@@ -311,14 +264,3 @@ See [LICENSE](LICENSE) for details.
 akbar.esfahani@thealliance.health
 
 For questions about the paper, code, or data, please open an issue on GitHub.
-
----
-
-## Links
-
-- **Paper (arXiv)**: [Coming soon]
-- **DOI (Zenodo)**: [Coming soon]
-
----
-
-*Last updated: March 2026*

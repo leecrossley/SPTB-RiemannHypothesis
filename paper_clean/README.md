@@ -1,13 +1,6 @@
-# Clean Paper Version - SPTB for L-Functions
+# March manuscript
 
-This is a cleaned and optimized version of the SPTB paper with improved page layout.
-
-## Improvements Over Original
-
-- **Reduced page count**: 28 pages (down from 41 pages, 32% reduction)
-- **Fixed excessive page breaks**: Removed auto-clearpage before every section
-- **Better readability**: Sections flow naturally within each part
-- **Preserved content**: All mathematical content, proofs, and figures intact
+The March 2026 edition of *A Structural Spline-Penalized Tail Bound for L-Functions* has 34 pages. The November revision gives a counterexample to its scale-uniform affine lower bound and sets out the estimates needed to detect a mode in the full spectrum. [March manuscript](main.pdf) [November revision](../paper_witness/main.pdf) [Revision record](../paper_witness/REVISION_NOTES.md)
 
 ## Structure
 
@@ -17,6 +10,7 @@ paper_clean/
 ├── parts/
 │   ├── part1.tex        # Foundations and Variance Regime
 │   ├── part2.tex        # Bias Regime and Detection Theorem
+│   ├── part2b_explicit_formula.tex  # Explicit formula and the surrogate field
 │   ├── part3.tex        # Empirical Validation
 │   └── part4.tex        # Geometric Framework (heuristic)
 ├── appendices/
@@ -47,35 +41,3 @@ pdflatex main.tex
 ```
 
 Run pdflatex three times to ensure all cross-references and TOC are correct.
-
-## Page Break Policy
-
-The cleaned version uses a more sensible page break policy:
-
-- ✅ Page breaks **between major parts** (Part 1 → Part 2 → Part 3 → Part 4)
-- ✅ Page break after TOC
-- ✅ Page break before appendices
-- ✅ Page break before bibliography
-- ❌ **No automatic page breaks** before every section (removed)
-
-## Output
-
-- **PDF**: `main.pdf` (28 pages)
-- All theorem numbering preserved
-- All figure references intact
-- Complete table of contents
-
-## Comparison with Original
-
-| Metric | Original | Clean | Improvement |
-|--------|----------|-------|-------------|
-| Pages | 41 | 28 | 32% reduction |
-| Page breaks | Every section | Only major parts | Much better flow |
-| Content | Complete | Complete | Identical |
-
-## Notes
-
-- This version is ready for submission or distribution
-- All mathematical content is identical to the original
-- Figures are included and properly referenced
-- The reduced page count makes the paper more readable and professional

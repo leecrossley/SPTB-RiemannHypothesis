@@ -8,8 +8,8 @@ authors:
 title: "SPTB: A Structural Spline-Penalized Tail Bound for L-Functions"
 version: 1.0.0
 date-released: 2025-10-16
-url: "https://github.com/YOUR_USERNAME/SPTB-RiemannHypothesis"
-repository-code: "https://github.com/YOUR_USERNAME/SPTB-RiemannHypothesis"
+url: "https://github.com/aakbarie/SPTB-RiemannHypothesis"
+repository-code: "https://github.com/aakbarie/SPTB-RiemannHypothesis"
 keywords:
   - Riemann Hypothesis
   - L-functions
@@ -18,9 +18,4 @@ keywords:
   - analytic number theory
 license: MIT
 abstract: >
-  We introduce the Spline-Penalized Tail Bound (SPTB) functional,
-  a measurable criterion for detecting off-critical zeros of
-  automorphic L-functions through exponential curvature growth.
-  Rigorous analytic bounds, empirical validation to 0.001% precision,
-  and a geometric reformulation provide a reproducible detection
-  criterion linked to the Riemann Hypothesis.
+  The Spline-Penalized Tail Bound measures the residual after fitting affine functions on short intervals. The numerical experiments use tabulated zero ordinates and synthetic off-line zeros. The proposed detection criterion for the full zero spectrum requires a bound on cancellation between modes.
